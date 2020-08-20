@@ -51,15 +51,12 @@ import org.springframework.geode.config.annotation.EnableClusterAware;
 @SpringBootApplication
 @EnableDurableClient(id = "pizza-store")
 @EnableEntityDefinedRegions
+@EnableClusterAware
 public class CloudcachePizzaStoreApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CloudcachePizzaStoreApplication.class, args);
     }
 
-    @Bean("mySocketFactory")
-    SocketFactory getSocketFactoryBean(@Value("${sni.hostname:tcp.foundation.cf-app.com}") String hostname,
-                                       @Value("${sni.port:8888}") int port) {
-        return  new SniProxySocketFactory(hostname, port);
-    }
+
 }
