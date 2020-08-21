@@ -10,8 +10,16 @@ import org.springframework.data.gemfire.config.annotation.EnableClusterConfigura
 import org.springframework.data.gemfire.config.annotation.EnableEntityDefinedRegions;
 import org.springframework.data.gemfire.config.annotation.EnableSsl;
 
+@Profile("off-platform")
+@EnableEntityDefinedRegions(basePackages = "io.pivotal.cloudcache.app")
+@EnableClusterConfiguration(useHttp = true)
+@EnableSsl
 @Configuration
-public class PizzaConfig {
+class OffPlatformConfiguration {
 
-
+    @Bean("mySocketFactory")
+    SocketFactory getSocketFactoryBean(@Value("${service-gateway.hostname}") String hostname,
+                                       @Value("${service-gateway.port}") int port) {
+        return new SniProxySocketFactory(hostname, port);
+    }
 }

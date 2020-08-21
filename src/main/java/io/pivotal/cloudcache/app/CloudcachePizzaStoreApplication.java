@@ -50,8 +50,6 @@ import org.springframework.geode.config.annotation.EnableClusterAware;
  */
 @SpringBootApplication
 @EnableDurableClient(id = "pizza-store")
-@EnableEntityDefinedRegions
-@EnableClusterAware
 public class CloudcachePizzaStoreApplication {
 
     public static void main(String[] args) {

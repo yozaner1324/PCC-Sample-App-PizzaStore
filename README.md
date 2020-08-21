@@ -28,7 +28,7 @@ This repo demonstrates various deployment scenarios in which an app can talk to 
         
         Deletes all Pizzas from GemFire region.
 
-### Getting started: Run the app locally talk to a GemFire Client Cache.
+### Getting started: Run the localhost dev environment
 
 To get started, let us run this app locally, not connecting to a GemFire service instance. Since we are using the SBDG annotation [`@EnableClusterAware`](https://docs.spring.io/spring-boot-data-geode-build/current/reference/html5/#geode-configuration-declarative-annotations-productivity-enableclusteraware), when we dont configure a service instance to talk to, the annotation redirects cache operations operations to `LOCAL` regions. Thus giving an experience of a embedded cache on the client side.  
     
@@ -54,7 +54,7 @@ This repo demonstrates all the above 3 by use of spring profiles.
 
 we pick each of the scenarios mentioned above[Categories of app](#categories-of-app) and demonstrate them.
 
-### When your app is running off-platform.
+## 1. When your app is running <ins>off-platform</ins>
 
 This is the case where your app is not running on a Cloud Foundary Foundation. It could be running on your local machine 
 or in a VM in the cloud.
@@ -68,26 +68,28 @@ Steps:
    Since your app is running outside the foundation, the service instance should be created with a flag (`services-gateway`), so that it can be accessed from outside the foundation. Create the service instance as below
    `cf create-service p-cloudcache <PLAN> <SERVICE_INSTANCE_NAME> -t {"tls":true, "service_gateway":true}`. the flg `tls:true` is mandatory when to use service gateway feature. `<PLAN>` can be any of the plans defined in the tile configuration (ex: `small-footprint`,`dev-plan` etc).
    
-2. Create a **service key**:
+3. Create a **service key**:
    Run `cf service-key <SERVICE_INSTANCE_NAME> <KEY_NAME>`
 
-3. **Create truststore** so for TLS. 
+4. **Create truststore** so for TLS. 
    Since the service instance will be TLS enabled, app has to be able to establish a TLS connection with the service instance. For this purpose the app has to have a truststore with 2 CAs in it and below is how one can get them.
    
-   3.a. Get `services/tls_ca`from credhub by running `credhub get --name="/services/tls_ca" -k ca > services_ca.crt`.
+   4.a. Get `services/tls_ca`from credhub by running `credhub get --name="/services/tls_ca" -k ca > services_ca.crt`.
    
-   3.b. Get the CA from where your TLS termination occurs and store it in a `.crt` file. If your TLS terminates at gorouter then you can get the CA from `OpsManager`-> `Settings`-> `Advanced Options` -> `Download Root CA Cert`.
+   4.b. Get the CA from where your TLS termination occurs and store it in a `.crt` file. If your TLS terminates at gorouter then you can get the CA from `OpsManager`-> `Settings`-> `Advanced Options` -> `Download Root CA Cert`.
    
-   3.c. Create a truststore which has both the above CAs
+   4.c. Create a truststore which has both the above CAs
     `keytool -importcert -file services_ca.crt -keystore mytruststore.jks -storetype JKS`
     `keytool -importcert -file root_ca.crt -keystore mytruststore.jks -storetype JKS`.
     
-   3.d. Move the truststore to resources directory. SBDG expects the truststore to be in one of the 3 well known locations. Details are in SBDG [docs](https://docs.spring.io/autorepo/docs/spring-boot-data-geode-build/1.3.2.RELEASE/reference/html5/#geode-security-ssl).
-   
-4. **Configure app to talk to the service instance**
+   4.d. Move the truststore to resources directory. SBDG expects the truststore to be in one of the 3 well known locations. Details are in SBDG [docs](https://docs.spring.io/autorepo/docs/spring-boot-data-geode-build/1.3.2.RELEASE/reference/html5/#geode-security-ssl).
+      
+5. **Configure the app to talk to the service instance**
      By configuring details in `application-off-platform.properties` file.  
-       
-       
+
+6. **Run the app** by running `mvn spring-boot:run -Dspring-boot.run.profiles=off-platform`.
+
+7. **Interact with the app** by hitting the endpoints at http://localhost:8080           
    
     
  
