@@ -13,7 +13,7 @@ import org.springframework.data.gemfire.config.annotation.EnableSsl;
 @Profile("off-platform")
 @EnableEntityDefinedRegions(basePackages = "io.pivotal.cloudcache.app")
 @EnableClusterConfiguration(useHttp = true)
-@EnableSsl
+//@EnableSsl
 @Configuration
 class OffPlatformConfiguration {
 

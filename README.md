@@ -80,14 +80,14 @@ Steps:
    
    4.c. Create a truststore which has both the above CAs
     `keytool -importcert -file services_ca.crt -keystore mytruststore.jks -storetype JKS`
-    `keytool -importcert -file root_ca.crt -keystore mytruststore.jks -storetype JKS`.
+    `keytool -importcert -alias root_ca -file root_ca.crt -keystore mytruststore.jks -storetype JKS`.
     
    4.d. Move the truststore to resources directory. SBDG expects the truststore to be in one of the 3 well known locations. Details are in SBDG [docs](https://docs.spring.io/autorepo/docs/spring-boot-data-geode-build/1.3.2.RELEASE/reference/html5/#geode-security-ssl).
       
 5. **Configure the app to talk to the service instance**
      By configuring details in `application-off-platform.properties` file.  
 
-6. **Run the app** by running `mvn spring-boot:run -Dspring-boot.run.profiles=off-platform`.
+6. **Run the app** by running `mvn spring-boot:run -Dspring-boot.run.profiles=off-platform -D`.
 
 7. **Interact with the app** by hitting the endpoints at http://localhost:8080           
    
@@ -95,6 +95,9 @@ Steps:
  
 
 
+====================================================================================================
+Work In Progress below this
+====================================================================================================
 
 This sample app demonstrates various ways that an app can talk to a Tanzu GemFire For VMs (TGF4VMs) service instance.
 
