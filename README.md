@@ -87,7 +87,7 @@ Steps:
 5. **Configure the app to talk to the service instance**
      By configuring details in `application-off-platform.properties` file.  
 
-6. **Run the app** by running `mvn spring-boot:run -Dspring-boot.run.profiles=off-platform -D`.
+6. **Run the app** by running `mvn spring-boot:run -Dspring-boot.run.profiles=off-platform -Dspring-boot.run.jvmArguments="-Djavax.net.ssl.trustStore=/tmp/mytruststore1.jks -Djavax.net.ssl.trustStorePassword=123456"`.
 
 7. **Interact with the app** by hitting the endpoints at http://localhost:8080           
    
