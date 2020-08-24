@@ -80,7 +80,12 @@ As the app is bound to the service instance (via the declaration in manifest.yml
 SBDG was able to interospect the app container to get the connection details to the service instance. SBDG
 then auto configured the app to talk to the service instance. Nothing extra needs to be done to talk to a TLS
 enabled service instance.  
- 
+
+## 2. When your app the service instance are on different foundations (Application Foundation app)
+
+TODO
+
+
 ## 3. When your app is running <ins>off-platform</ins>
 
 This is the case where your app is not running on a Cloud Foundary Foundation. It could be running on your local machine 
