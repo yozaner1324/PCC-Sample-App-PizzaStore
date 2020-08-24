@@ -54,7 +54,7 @@ For an app that is talking to a TGF4VMs service instance, depending on where the
  
 This repo demonstrates all the above 3 by use of spring profiles.
 
-we pick each of the scenarios mentioned above[Categories of app](#categories-of-app) and demonstrate them.
+We pick each of the scenarios mentioned [above](#categories-of-app) and demonstrate them.
 
 ## 1. When your app is running in the same foundation as the service instance (Services Foundation app)
 
@@ -85,13 +85,14 @@ enabled service instance.
 
 TODO
 
-
 ## 3. When your app is running <ins>off-platform</ins>
 
 This is the case where your app is not running on a Cloud Foundary Foundation. It could be running on your local machine 
 or in a VM in the cloud.
 
-Steps:
+As a prerequisite make sure services gateway setup is done as described in [Setting up service gateway](#setting-up-service-gateway). 
+
+#### Steps:
 
 1. Login to Cloud Foundary CLI (CF CLI) where you want the service to create the service instance and target to the org/space where you want to start the service.
 
@@ -123,3 +124,29 @@ Steps:
 
 7. **Interact with the app** by hitting the endpoints at http://localhost:8080           
    
+   
+### [Setting up service gateway](#settingup-service-gateway)
+
+Service Gateway is a Tanzu GemFire For VMs feature which lets you connect to the service instance
+from outside the foundation where the service instance is running. 
+To setup below steps have to be performed.
+
+##### Enable TCP Routing
+
+Refer to Refer TAS [docs](https://docs.pivotal.io/application-service/2-10/adminguide/enabling-tcp-routing.html) for details,
+at a high level you will have to 
+
+1.a. _Enable TCP routing in the TAS tile of OpsMan_ under _Networking_ tab.
+   
+1.b. _Enable Services Gateway on the TGF4VMs Tile_ under _Settings_ tab.
+
+1.c. Hit `Apply Changes` in Ops manager.
+
+1.d. _Create a TCP CF route_ as mentioned in [TAS docs](https://docs.pivotal.io/application-service/2-10/adminguide/enabling-tcp-routing.html).
+   
+   
+    cf create-shared-domain tcp.${BOSH_ENV_NAME}.cf-app.com --router-group default-tcp
+    cf quotas
+    cf update-quota default --reserved-route-ports 10
+    cf quotas
+    
