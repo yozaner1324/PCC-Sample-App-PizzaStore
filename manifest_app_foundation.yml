@@ -1,0 +1,12 @@
+---
+applications:
+- name: cloudcache-pizza-store
+  path: target/PCC-Sample-App-PizzaStore-1.0.0-SNAPSHOT.jar
+  buildpacks:
+    - https://github.com/cloudfoundry/java-buildpack.git
+  random-route: true
+  services:
+#    - neongold
+  env:
+    SPRING_PROFILES_ACTIVE: app-foundation
+    JAVA_OPTS: '-Djavax.net.ssl.trustStore=/home/vcap/app/BOOT-INF/classes/mytruststore1.jks -Djavax.net.ssl.trustStorePassword=123456'
