@@ -6,7 +6,6 @@ applications:
     - https://github.com/cloudfoundry/java-buildpack.git
   random-route: true
   services:
-#    - neongold
   env:
     SPRING_PROFILES_ACTIVE: app-foundation
-    JAVA_OPTS: '-Djavax.net.ssl.trustStore=/home/vcap/app/BOOT-INF/classes/mytruststore1.jks -Djavax.net.ssl.trustStorePassword=123456'
+    JAVA_OPTS: '-Djavax.net.ssl.trustStore=/home/vcap/app/BOOT-INF/classes/mytruststore.jks -Djavax.net.ssl.trustStorePassword=123456'
