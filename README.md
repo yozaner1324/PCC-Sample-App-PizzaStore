@@ -103,7 +103,7 @@ As a prerequisite make sure services gateway setup is done as described in [Sett
 
 7. cf push the app by running `cf push -f manifest_app_foundation.yml --no-start`. 
 
-8. run `cf set-env cloudcache-pizzastore JBP_CONFIG_CONTAINER_SECURITY_PROVIDER '{key_manager_enabled: false}'` to disable container security provider as we want the app to use the truststore that comes with the app in the resources directory.
+8. If your app uses @EnableClusterConfiguration (this app does) annotation then run `cf set-env cloudcache-pizzastore JBP_CONFIG_CONTAINER_SECURITY_PROVIDER '{key_manager_enabled: false}'` to disable container security provider as we want the app to use the truststore that comes with the app in the resources directory.
 
 9. Start the app `cf start cloudcache-pizzastore`
 
